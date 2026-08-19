@@ -1,4 +1,6 @@
 import * as repository from "../repositories/comandasRepository.js";
+import validarComanda from "../utils/validarComandas.js";
+import { AppError } from "../utils/appError.js";
 import { randomUUID } from 'crypto'
 
 export const getAll = () => {
@@ -7,16 +9,14 @@ export const getAll = () => {
 
 export const getById = (id) => {
     const comanda = repository.getById(id);
-    if (!comanda) throw new Error('Comanda não encontrada.');
+    if (!comanda) throw new AppError('Comanda não encontrada.', 404);
 
     return comanda;
 };
 
 export const post = (data) => {
 
-    if (!data.numero || !data.mesa ||
-    typeof data.pedido !== 'string' || !data.pedido.trim() || 
-    data.total == null) throw new Error('Preencha todos os campos necessários.');
+    validarComanda(data);
 
     const novaComanda = {
         ...data,
@@ -30,18 +30,16 @@ export const post = (data) => {
 export const update = (id, data) => {
 
     const comanda = repository.getById(id);
-    if (!comanda) throw new Error('Comanda não encontrada.');
+    if (!comanda) throw new AppError('Comanda não encontrada.', 404);
 
-    if (!data.numero || !data.mesa ||
-    typeof data.pedido !== 'string' || !data.pedido.trim() || 
-    data.total == null) throw new Error('Preencha todos os campos necessários.');
+    validarComanda(data);
 
     return repository.update(id, data);
 };
 
 export const remove = (id) => {
     const comanda = repository.getById(id);
-    if (!comanda) throw new Error('Comanda não encontrada.');
+    if (!comanda) throw new AppError('Comanda não encontrada.', 404);
 
     return repository.remove(id);
 };
