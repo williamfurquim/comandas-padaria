@@ -1,20 +1,21 @@
 import jwt from "jsonwebtoken";
+import { AppError } from "../utils/appError.js";
 
 function verificarJWT(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({
-      mensagem: "Token não fornecido."
-    });
+    return next(
+      new AppError("Token não fornecido.", 401)
+    );
   }
 
   const [scheme, token] = authHeader.split(" ");
 
   if (scheme !== "Bearer" || !token) {
-    return res.status(401).json({
-      mensagem: "Formato do token inválido."
-    });
+    return next(
+      new AppError("Formato do Token inválido.", 401)
+    );
   }
 
   jwt.verify(
@@ -22,13 +23,15 @@ function verificarJWT(req, res, next) {
     process.env.JWT_SECRET,
     (err, decoded) => {
       if (err) {
-        return res.status(403).json({
-          mensagem: "Token inválido ou expirado."
-        });
+        return next(
+          new AppError(
+            "Token inválido ou expirado.",
+            403
+          )
+        );
       }
 
       req.usuario = decoded;
-
       next();
     }
   );
