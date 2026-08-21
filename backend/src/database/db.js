@@ -17,3 +17,12 @@ export const produtos = [
         preco: 12.00
     }
 ];
+
+export const contas = [
+    {
+        id: 1,
+        usuario: "admin",
+        email: "padaria@trigos.com",
+        senha: "$2b$10$5/5VI9jZLIWm10krjqk34ut6MRn6T.UG1/rM6QXrtSENOUJ/nEJkO"
+    }
+]
