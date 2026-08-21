@@ -1,4 +1,4 @@
-import * as services from '../services/comandasServices.js'
+import * as services from '../services/comandasService.js'
 
 export const getAll = (req, res, next) => {
     try {

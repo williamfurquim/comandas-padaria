@@ -1,8 +1,8 @@
 import express from 'express'
-import comandasRouter from './routes/comandasRoutes.js';
-import loginRouter from './routes/contasRoutes.js';
+import comandasRouter from './routes/comandasRouter.js';
+import loginRouter from './routes/contasRouter.js';
 import verificarJWT from './middleware/verificarJWT.js';
-import { globalErrorHandler } from './middleware/errorHandler.js';
+import { globalErrorHandler } from './middleware/globalErrorHandler.js';
 
 const app = express();
 
