@@ -26,7 +26,7 @@ function verificarJWT(req, res, next) {
         return next(
           new AppError(
             "Token inválido ou expirado.",
-            403
+            401
           )
         );
       }
