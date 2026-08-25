@@ -2,6 +2,7 @@ import { produtos } from '../database/db.js';
 import * as repository from '../repositories/produtosRepository.js';
 import { AppError } from '../utils/appError.js'
 import { validarProduto } from '../utils/validarProdutos.js';
+import { validarPatchProduto } from '../utils/validarProdutos-patch.js';
 
 export const getAll = () => {
     return repository.getAll();
@@ -45,7 +46,7 @@ export const update = (id, data) => {
     const produto = repository.getById(id);
     if (!produto) throw new AppError('Produto não encontrado.', 404);
 
-    validarProduto(data);
+    validarPatchProduto(data);
 
     return repository.update(id, data);
 };

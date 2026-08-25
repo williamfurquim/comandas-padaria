@@ -45,15 +45,7 @@ export const remove = (req, res, next) => {
 export const update = (req, res, next) => {
     try {
         const { id } = req.params;
-        const { nome, categoria, preco, quantidade, unidade, disponivel } = req.body;
-        const produto = service.update(id, {
-            nome, 
-            categoria, 
-            preco, 
-            quantidade, 
-            unidade, 
-            disponivel
-        });
+        const produto = service.update(id, req.body);
 
         res.json(produto);
     } catch (error) {

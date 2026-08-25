@@ -43,4 +43,3 @@ export const remove = (id) => {
 
     return repository.remove(id);
 };
-
